@@ -30,6 +30,19 @@ source venv/bin/activate
 
 ---
 
+## 📚 Dependency Management
+
+### Save dependencies
+```bash
+pip freeze > requirements.txt
+```
+
+### Restore dependencies
+```bash
+pip install -r requirements.txt
+```
+---
+
 ## Install Flask
 
 pip install Flask
@@ -127,3 +140,7 @@ https://flask.palletsprojects.com/
 ---
 
 Happy coding!
+
+
+# colab notebook
+https://colab.research.google.com/drive/126GHpghQWbs7us91zyu4uoOGtobbfUkt
