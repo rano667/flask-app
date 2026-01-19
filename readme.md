@@ -144,3 +144,30 @@ Happy coding!
 
 # colab notebook
 https://colab.research.google.com/drive/126GHpghQWbs7us91zyu4uoOGtobbfUkt
+
+# docker setup
+- install docker and sign up
+create the "Dockerfile"
+'''
+FROM python:3.13.4-slim-bookworm
+WORKDIR /docker
+
+# Install the application dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy in the source code
+COPY ./ ./
+
+CMD ["python", "-m", "flask", "--app", "loan", "run", "--host", "0.0.0.0", "--port", "8080"]
+'''
+# create a docker build
+-this will create a docker image
+'''
+docker build -t flask_loan_app .   
+'''
+# check the images
+docker images 
+
+# run the the image
+docker run -p 8080:8080 flask_loan_app  
