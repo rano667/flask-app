@@ -170,4 +170,39 @@ docker build -t flask_loan_app .
 docker images 
 
 # run the the image
-docker run -p 8080:8080 flask_loan_app  
+docker run -p 8080:5000 flask_loan_app  
+
+# aws deployment ecr & ecs
+
+## Install or update the AWS CLI
+'''
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi /qn
+aws --version
+'''
+
+## create a IAM user and get the access keygive these permissions
+- AmazonEC2ContainerRegistryFullAccess
+- AmazonEC2ContainerRegistryPowerUser
+- AmazonECS_FullAccess
+- AmazonECSTaskExecutionRolePolicy
+- AmazonS3FullAccess
+- AmazonSageMakerFullAccess
+- IAMFullAccess
+- IAMReadOnlyAccess
+- IAMUserChangePassword
+'''
+aws configure
+aws sts get-caller-identity
+'''
+
+## now login to ecr (docker setup should be ready locally and running)
+'''
+aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 289221384679.dkr.ecr.ap-south-2.amazonaws.com
+docker build -t flask-app .
+docker tag flask-app:latest 289221384679.dkr.ecr.ap-south-2.amazonaws.com/flask-app:latest
+aws ecr create-repository `--repository-name flask-app` --region ap-south-2
+docker push 289221384679.dkr.ecr.ap-south-2.amazonaws.com/flask-app:latest
+'''
+
+
